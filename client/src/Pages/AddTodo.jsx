@@ -37,9 +37,6 @@ axios.post(`http://localhost:8080/${id}/task`,{
         <h1> Sprint Plan</h1>
         <button onClick={onOpen} className={style.button} >Add New Task</button>
         <>
-      
-     
-  
         <Modal
           initialFocusRef={initialRef}
           finalFocusRef={finalRef}
