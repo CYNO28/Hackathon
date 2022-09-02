@@ -2,6 +2,7 @@ import './App.css';
 import Login from './Pages/Login';
 import { Routes, Route } from "react-router-dom";
 import Sign from './Pages/Sign';
+import Todo from './Pages/Todo';
 function App() {
   return (
   
@@ -11,7 +12,7 @@ function App() {
     <Route path={'/signup'} element={<Sign/>}/>
 
    </Routes>
- 
+ <Todo></Todo>
    </>
    
   );
