@@ -18,7 +18,8 @@ const TaskSchema = new Schema({
     userid: String,
     time:String,
     description: String,
-    Title: String
+    Title: String,
+    completed: Boolean
 })
 const Task=model('Task',TaskSchema)
 const User = model("User", UserSchema);
@@ -50,7 +51,8 @@ app.post('/:userid/task',async(req,res)=>{
     const userid=req.params.userid;
     const task={
         ...req.body,
-        userid
+        userid,
+        completed:false
     }
     const note=new Task(task);
     note.save((a,b)=>{
