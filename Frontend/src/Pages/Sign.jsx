@@ -27,12 +27,12 @@ export default function Sign() {
     password:''
   })
   function changeHandler(e){
-    setData({[e.targe.name]:e.target.value})
+    setData({...data,[e.target.name]:e.target.value})
   }
   function submitHandler()
 
 {
-  console.log("woridk")
+  console.log(data)
   axios.post("http://localhost:8080/signup",{
     firstname:data.first_name,
     lastname:data.second_name,

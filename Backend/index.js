@@ -14,23 +14,69 @@ const UserSchema = new Schema({
     email: String,
     password:String
 })
+const TaskSchema = new Schema({
+    userid: String,
+    task: String
+})
+const Task=model('Task',TaskSchema)
 const User = model("User", UserSchema);
 app.post('/signup',async (req, res)=>{
-    const user = new User(req, res)
+    const user = new User(req.body)
+    console.log(req.body)
     user.save();
-    const token = jwt.sign({ email: user.email }, process.env.secret);
-    res.send(token)
+    res.send(' user created successfully')
 })
 app.post('/login',async (req, res)=>{
     const user = User.findOne({ email: req.body})
     if(user){
         const token = jwt.sign({ id:user._id }, process.env.secret);
-        res.send(token)
+        res.send({token,id:user._id})
 
     }else{
         res.status(401).send('not found')
     }
 })
+
+
+
+// --------------------task model
+app.get("/:userid/task", async(req, res) => {
+    const data = await Task.find({userid:req.params.userid});
+    res.send(data);
+})
+app.post('/:userid/task',async(req,res)=>{
+    const userid=req.params.userid;
+    const task={
+        ...req.body,
+        userid
+    }
+    const note=new Task(task);
+    note.save((a,b)=>{
+        if(a){
+            console.log('err')
+        }
+        else{
+            res.send(b);
+        }
+    })
+})
+app.patch('/:userid/task/:id',async(req,res)=>{
+    const id=req.params.id;
+    const userid=req.params.userid;
+    const task={
+        ...req.body,
+        userid
+    }
+    const note=await Task.findOneAndUpdate({_id:id,userid},task);
+    res.send(note);
+})
+app.delete('/:userid/task/:id',async(req,res)=>{
+    const id=req.params.id;
+    const userid=req.params.userid;
+    const note=await Task.findOneAndDelete({_id:id,userid});
+    res.send(note);
+})
+
 app.listen(PORT,async ()=>{
     try{
         await connection;

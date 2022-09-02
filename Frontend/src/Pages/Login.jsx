@@ -12,8 +12,29 @@ import {
     Text,
     useColorModeValue,
   } from '@chakra-ui/react';
+import axios from "axios"
+
+import { useState } from 'react';
   
   export default function Login() {
+    const [data,setData]=useState({
+      
+      email:'',
+      password:''
+    })
+    function changeHandler(e){
+      setData({...data,[e.target.name]:e.target.value})
+    }
+    function submitHandler()
+
+    {
+
+      axios.post("http://localhost:8080/signup",{
+     
+        email:data.email,
+        password:data.password
+      }).then(r=>{console.log(r.data)})
+    }
     return (
       <Flex
         minH={'100vh'}
@@ -35,23 +56,19 @@ import {
             <Stack spacing={4}>
               <FormControl id="email">
                 <FormLabel>Email address</FormLabel>
-                <Input type="email" />
+                <Input type="email"name="email" onChange={(e)=>changeHandler(e)}/>
               </FormControl>
               <FormControl id="password">
                 <FormLabel>Password</FormLabel>
-                <Input type="password" />
+                <Input type="password"name="password" onChange={(e)=>changeHandler(e)}/>
               </FormControl>
               <Stack spacing={10}>
-                <Stack
-                  direction={{ base: 'column', sm: 'row' }}
-                  align={'start'}
-                  justify={'space-between'}>
-                  <Checkbox>Remember me</Checkbox>
-                  <Link color={'blue.400'}>Forgot password?</Link>
-                </Stack>
+             
                 <Button
                   bg={'blue.400'}
                   color={'white'}
+                  onClick={submitHandler}
+
                   _hover={{
                     bg: 'blue.500',
                   }}>
