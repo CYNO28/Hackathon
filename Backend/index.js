@@ -5,13 +5,14 @@ const jwt = require("jsonwebtoken");
 const cors = require("cors");
 const { Schema, model } = require("mongoose");
 const connection = require("./db");
-
+app.use(cors())
 let PORT  =8080
 app.use(express.json())
 const UserSchema = new Schema({
     firstname: String,
     lastname: String,
     email: String,
+    password:String
 })
 const User = model("User", UserSchema);
 app.post('/signup',async (req, res)=>{

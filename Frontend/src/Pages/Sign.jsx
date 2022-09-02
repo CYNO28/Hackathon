@@ -14,6 +14,7 @@ import {
   useColorModeValue,
   Link,
 } from '@chakra-ui/react';
+import axios from "axios"
 import { useState } from 'react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 
@@ -25,8 +26,20 @@ export default function Sign() {
     email:'',
     password:''
   })
-  function changeHandler(){}
+  function changeHandler(e){
+    setData({[e.targe.name]:e.target.value})
+  }
+  function submitHandler()
 
+{
+  console.log("woridk")
+  axios.post("http://localhost:8080/signup",{
+    firstname:data.first_name,
+    lastname:data.second_name,
+    email:data.email,
+    password:data.password
+  }).then(r=>{localStorage.setItem("token",JSON.stringify(r.data)})
+}
   return (
     <Flex
       minH={'100vh'}
@@ -52,24 +65,24 @@ export default function Sign() {
               <Box>
                 <FormControl id="firstName" isRequired>
                   <FormLabel>First Name</FormLabel>
-                  <Input type="text" onChange={(e)=>changeHandler(e)}/>
+                  <Input type="text" name="first_name" onChange={(e)=>changeHandler(e)}/>
                 </FormControl>
               </Box>
               <Box>
                 <FormControl id="lastName">
                   <FormLabel>Last Name</FormLabel>
-                  <Input type="text" />
+                  <Input type="text" name="second_name"  onChange={(e)=>changeHandler(e)}/>
                 </FormControl>
               </Box>
             </HStack>
             <FormControl id="email" isRequired>
               <FormLabel>Email address</FormLabel>
-              <Input type="email" />
+              <Input type="email" name="email" onChange={(e)=>changeHandler(e)} />
             </FormControl>
             <FormControl id="password" isRequired>
               <FormLabel>Password</FormLabel>
               <InputGroup>
-                <Input type={showPassword ? 'text' : 'password'} />
+                <Input type={showPassword ? 'text' : 'password'} name="password" onChange={(e)=>changeHandler(e)} />
                 <InputRightElement h={'full'}>
                   <Button
                     variant={'ghost'}
@@ -83,6 +96,7 @@ export default function Sign() {
             </FormControl>
             <Stack spacing={10} pt={2}>
               <Button
+              onClick={submitHandler}
                 loadingText="Submitting"
                 size="lg"
                 bg={'blue.400'}
