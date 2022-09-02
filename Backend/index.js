@@ -16,8 +16,8 @@ const UserSchema = new Schema({
 })
 const TaskSchema = new Schema({
     userid: String,
-    time:String,
-    description: String,
+    Time:String,
+    Description: String,
     Title: String,
     completed: Boolean
 })
@@ -30,7 +30,9 @@ app.post('/signup',async (req, res)=>{
     res.send(' user created successfully')
 })
 app.post('/login',async (req, res)=>{
-    const user = User.findOne({ email: req.body})
+let {email}=req.body
+    const user =await User.findOne({email: email})
+    
     if(user){
         const token = jwt.sign({ id:user._id }, process.env.secret);
         res.send({token,id:user._id})
@@ -49,6 +51,7 @@ app.get("/:userid/task", async(req, res) => {
 })
 app.post('/:userid/task',async(req,res)=>{
     const userid=req.params.userid;
+    console.log(req.body)
     const task={
         ...req.body,
         userid,
@@ -77,6 +80,7 @@ app.patch('/:userid/task/:id',async(req,res)=>{
 app.delete('/:userid/task/:id',async(req,res)=>{
     const id=req.params.id;
     const userid=req.params.userid;
+    console.log(id,userid);
     const note=await Task.findOneAndDelete({_id:id,userid});
     res.send(note);
 })

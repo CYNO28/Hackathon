@@ -11,7 +11,7 @@ import {
     ModalCloseButton,
     useDisclosure,Button,FormControl,FormLabel,Input
   } from '@chakra-ui/react'
-const AddTodo = () => {
+const AddTodo = ({refresh}) => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     
     const [data,setData]=useState({
@@ -19,14 +19,15 @@ const AddTodo = () => {
         Time:'',
         Description:''
     })
-    let id='6311ed1ecc3260e275beb4d2'
+    let id=localStorage.getItem('id')
     function onChange(e){
 setData({...data,[e.target.name]:e.target.value})
     }
     function submitHandler(){
 axios.post(`http://localhost:8080/${id}/task`,{
-    task:{...data}
-}).then((r)=>console.log(r.data))
+    ...data
+}).then((r)=>{console.log(r.data)
+refresh()})
     }
     
   

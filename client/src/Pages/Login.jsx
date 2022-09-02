@@ -29,11 +29,13 @@ import { useState } from 'react';
 
     {
 
-      axios.post("http://localhost:8080/signup",{
+      axios.post("http://localhost:8080/login",{
      
         email:data.email,
         password:data.password
-      }).then(r=>{console.log(r.data)})
+      }).then(r=>{
+        localStorage.setItem('id',r.data.id)
+      })
     }
     return (
       <Flex
