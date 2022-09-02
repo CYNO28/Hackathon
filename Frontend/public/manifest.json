@@ -1,7 +1,7 @@
 {
-  "name": "Covid-19 Stats UK",
+  "name": "Todo APP",
   "version": "1.0.0",
-  "description": "latest covid data of UK",
+  "description": "",
   "manifest_version": 3,
   "author": "Sampurna Chapagain",
   "action":{
