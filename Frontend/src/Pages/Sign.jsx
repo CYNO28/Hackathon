@@ -20,10 +20,10 @@ import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 export default function Sign() {
   const [showPassword, setShowPassword] = useState(false);
   const [data,setData]=useState({
-    fist_name='',
-    second_name='',
-    email='',
-    password=''
+    fist_name:'',
+    second_name:'',
+    email:'',
+    password:''
   })
   function changeHandler(){}
 
