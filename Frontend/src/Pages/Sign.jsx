@@ -38,7 +38,7 @@ export default function Sign() {
     lastname:data.second_name,
     email:data.email,
     password:data.password
-  }).then(r=>{localStorage.setItem("token",JSON.stringify(r.data)})
+  }).then(r=>{localStorage.setItem("token",JSON.stringify(r.data))})
 }
   return (
     <Flex
