@@ -16,7 +16,7 @@ const UserSchema = new Schema({
 })
 const TaskSchema = new Schema({
     userid: String,
-    task: String
+    task: Object
 })
 const Task=model('Task',TaskSchema)
 const User = model("User", UserSchema);
